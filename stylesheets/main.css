@@ -1,0 +1,25 @@
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, serif;
+  font-size: 15px;
+  color: #666;
+  background: #fafafa;
+}
+
+#main {
+    border: 1px solid #999;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    background: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#main > header > h1 {
+    margin-top: 0;
+}
+
+#base64 textarea {
+    font-family: monospace;
+    margin-bottom: 10px;
+}
