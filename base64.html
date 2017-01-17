@@ -2,19 +2,21 @@
 layout: default
 title: base64
 ---
-<div id="base64">
-    <div class="row">
-        <div class="col-md-6">
-            <textarea  id="plainTextarea" class="form-control" rows="6"></textarea>
-            <button id="encodeButton" class="btn btn-default pull-right">Encode &rarr;</button>
-        </div>
-        <div class="col-md-6">
-            <textarea  id="encodedTextarea" class="form-control" rows="6"></textarea>
-            <button id="decodeButton" class="btn btn-default pull-left">&larr; Decode</button>
-        </div>
+<div class="row">
+    <div class="col-xs-12">
+        <textarea  id="textarea" class="form-control" rows="6"></textarea>
     </div>
-    <hr />
-    <div class="row">
-        <div id="history" class="col-md-12"></div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <button id="encodeButton" class="btn btn-default btn-block">Encode &rarr;</button>
+    </div>
+    <div class="col-xs-6">
+        <button id="decodeButton" class="btn btn-default btn-block">&larr; Decode</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="history"></div>
     </div>
 </div>

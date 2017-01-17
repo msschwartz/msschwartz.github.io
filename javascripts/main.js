@@ -1,5 +1,5 @@
-console.log('This would be the main JS file.');
 
+// load history from local storage
 var messageHistory = sessionStorage.getItem("messageHistory");
 if (messageHistory == null) {
     messageHistory = new Array();
@@ -8,44 +8,45 @@ if (messageHistory == null) {
 }
 
 for (i = 0; i < messageHistory.length; i++) {
-    $("#history").append(messageHistory[i]);
+    $("#history").prepend("<pre>" + messageHistory[i] + "</pre>");
 }
 
-function addHistory(input, output) {
-    var message = "<pre>" + input + "\n" + output + "</pre>";
-    $("#history").append(message);
-    messageHistory.push(message);
+function addHistory(input) {
+    $("#history").prepend("<pre>" + input + "</pre>");
+    
+    messageHistory.push(input);
+    if (messageHistory.length > 20) {
+        messageHistory.shift();
+    }
     sessionStorage.setItem("messageHistory", JSON.stringify(messageHistory));
 }
 
 $("#encodeButton").on("click", function(e) {
-    var plain = $("#plainTextarea").val();
+    var plain = $("#textarea").val();
     var encoded = btoa(plain);
-    $("#encodedTextarea").val(encoded);
+    $("#textarea").val(encoded);
     addHistory(plain, encoded);
 });
 
 $("#decodeButton").on("click", function(e) {
-    var encoded = $("#encodedTextarea").val();
+    var encoded = $("#textarea").val();
     var plain = atob(encoded);
-    $("#plainTextarea").val(plain);
+    $("#textarea").val(plain);
     addHistory(encoded, plain);
 });
 
-$(document).delegate('#plainTextarea', 'keydown', function(e) {
+$(document).delegate('#textarea', 'keydown', function(e) {
   var keyCode = e.keyCode || e.which;
 
   if (keyCode == 9) {
     e.preventDefault();
     var start = $(this).get(0).selectionStart;
-    var end = $(this).get(0).selectionEnd;
 
     // set textarea value to: text before caret + tab + text after caret
     $(this).val($(this).val().substring(0, start)
-        + "    " + $(this).val().substring(end));
+        + "    " + $(this).val().substring(start));
 
     // put caret at right position again
-    $(this).get(0).selectionStart =
-    $(this).get(0).selectionEnd = start + 1;
+    $(this).get(0).selectionStart = $(this).get(0).selectionEnd = start + 4;
   }
 });

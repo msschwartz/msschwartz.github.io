@@ -6,20 +6,25 @@ body {
   background: #fafafa;
 }
 
-#main {
-    border: 1px solid #999;
-    margin-top: 60px;
-    margin-bottom: 60px;
-    background: #fff;
-    padding-top: 10px;
-    padding-bottom: 10px;
+#header > h1 {
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
-#main > header > h1 {
-    margin-top: 0;
+#content {
+  border: 1px solid #999;
+  margin-bottom: 60px;
+  background: #fff;
+  padding: 10px;
 }
 
-#base64 textarea {
-    font-family: monospace;
-    margin-bottom: 10px;
+.page-base64 #textarea {
+  font-family: monospace;
+  margin-bottom: 10px;
+}
+
+.page-base64 #history {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-top: 1px solid #eee;
 }
