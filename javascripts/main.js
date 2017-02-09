@@ -7,15 +7,17 @@ if (messageHistory == null) {
     messageHistory = JSON.parse(messageHistory);
 }
 
+// populate history from session data
 for (i = 0; i < messageHistory.length; i++) {
     $("#history").prepend("<pre>" + messageHistory[i] + "</pre>");
 }
 
-function addHistory(input) {
-    $("#history").prepend("<pre>" + input + "</pre>");
+function addHistory(msg) {
+    $("#history").prepend("<pre>" + msg + "</pre>");
     
-    messageHistory.push(input);
-    if (messageHistory.length > 20) {
+    // add message to history 
+    messageHistory.push(msg);
+    if (messageHistory.length > 40) {
         messageHistory.shift();
     }
     sessionStorage.setItem("messageHistory", JSON.stringify(messageHistory));
@@ -25,19 +27,21 @@ $("#encodeButton").on("click", function(e) {
     var plain = $("#textarea").val();
     var encoded = btoa(plain);
     $("#textarea").val(encoded);
-    addHistory(plain, encoded);
+    addHistory(plain);
+    addHistory(encoded);
 });
 
 $("#decodeButton").on("click", function(e) {
     var encoded = $("#textarea").val();
     var plain = atob(encoded);
     $("#textarea").val(plain);
-    addHistory(encoded, plain);
+    addHistory(encoded);
+    addHistory(plain);
 });
 
 $(document).delegate('#textarea', 'keydown', function(e) {
   var keyCode = e.keyCode || e.which;
-
+  console.log("keydown: " + keyCode);
   if (keyCode == 9) {
     e.preventDefault();
     var start = $(this).get(0).selectionStart;
