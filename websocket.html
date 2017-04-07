@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>websocket</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h3>websocket</h3>
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="host">host</label>
+              <input type="text" class="form-control" id="host" placeholder="websocket server host">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="username">username</label>
+              <input type="text" class="form-control" id="username" placeholder="username">
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="password">password</label>
+              <input type="text" class="form-control" id="password" placeholder="password">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="consumer_topic">consumer topic</label>
+              <input type="text" class="form-control" id="consumer_topic" placeholder="consumer topic">
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="producer_topic">producer topic</label>
+              <input type="text" class="form-control" id="producer_topic" placeholder="producer topic">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label for="log">log</label>
+          <pre id="log" style="height:180px">ready</pre>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-xs-6">
+        <label>consumer</label>
+        <div class="form-group">
+          <button class="btn btn-default" onclick="openConsumer();">open</button>
+          <button class="btn btn-default" onclick="closeConsumer();">close</button>
+        </div>
+        <!-- consumer responses get written here -->
+        <pre id="messages">no messages</pre>
+      </div>
+      <div class="col-xs-6">
+        <label>producer</label>
+        <div class="form-group">
+          <button class="btn btn-default" onclick="openProducer();">open</button>
+          <button class="btn btn-default" onclick="closeProducer();">close</button>
+          <button class="btn btn-default" onclick="send();">send</button>
+        </div>
+        <textarea id="producerinput" class="form-control" rows="12" style="font-family:monospace"></textarea>
+      </div>
+    </div>
+
+  </div>
+  
+  <!-- Script to utilise the WebSocket -->
+  <script type="text/javascript">
+    var producer = null;
+    var consumer = null;
+    var log = document.getElementById("log");
+    var messages = document.getElementById("messages");
+    
+    function openConsumer() {
+      // Ensures only one connection is open at a time
+      if(consumer != null && consumer.readyState !== WebSocket.CLOSED){
+        writeResponse("WebSocket is already opened.");
+        return;
+      }
+
+      saveValues();
+
+
+      consumer = new WebSocket(`${document.getElementById("host").value}/consumer/${document.getElementById("consumer_topic").value}?username=${document.getElementById("username").value}&password=${document.getElementById("password").value}`);
+
+      consumer.onopen = function(event){
+        writeResponse("Consumer connection opened.");
+      };
+
+      consumer.onclose = function(event){
+        consumer = null;
+        writeResponse("Consumer connection closed.");
+      };
+
+      consumer.onmessage = function(event){
+        messages.innerHTML += "\n" + event.data;
+      };
+    }
+
+    function openProducer() {
+      // Ensures only one connection is open at a time
+      if(producer != null && producer.readyState !== WebSocket.CLOSED){
+        writeResponse("WebSocket is already opened.");
+        return;
+      }
+
+      saveValues();
+
+      producer = new WebSocket(`${document.getElementById("host").value}/producer/${document.getElementById("producer_topic").value}?username=${document.getElementById("username").value}&password=${document.getElementById("password").value}`);
+
+      producer.onopen = function(event){
+        writeResponse("Producer connection opened.");
+      };
+
+      producer.onclose = function(event){
+        producer = null;
+        writeResponse("Producer connection closed.");
+      };
+    }
+    
+    function send() {
+      var text = document.getElementById("producerinput").value;
+      sessionStorage.setItem("producerinput", text);
+      producer.send(text);
+    }
+    
+    function closeConsumer() {
+      consumer.close();
+    }
+
+    function closeProducer() {
+      producer.close();
+    }
+
+    function writeResponse(text){
+      log.innerHTML += "\n" + text;
+    }
+
+    function saveValues() {
+      sessionStorage.setItem("host", document.getElementById("host").value);
+      sessionStorage.setItem("username", document.getElementById("username").value);
+      sessionStorage.setItem("password", document.getElementById("password").value);
+      sessionStorage.setItem("consumer_topic", document.getElementById("consumer_topic").value);
+      sessionStorage.setItem("producer_topic", document.getElementById("producer_topic").value);
+    }
+    
+    document.getElementById("host").value = sessionStorage.getItem("host");
+    document.getElementById("username").value = sessionStorage.getItem("username");
+    document.getElementById("password").value = sessionStorage.getItem("password");
+    document.getElementById("consumer_topic").value = sessionStorage.getItem("consumer_topic");
+    document.getElementById("producer_topic").value = sessionStorage.getItem("producer_topic");
+    document.getElementById("producerinput").value = sessionStorage.getItem("producerinput");
+  </script>
+  
+</body>
+</html>
