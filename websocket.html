@@ -47,11 +47,20 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <button class="btn btn-default">save</button>
+              <button class="btn btn-default">load</button>
+            </div>
+          </div>
+          <div class="col-xs-6"></div>
+        </div>
       </div>
       <div class="col-xs-6">
         <div class="form-group">
           <label for="log">log</label>
-          <pre id="log" style="height:180px">Ready!</pre>
+          <pre id="log" style="height:254px">Ready!</pre>
         </div>
       </div>
     </div>
@@ -66,7 +75,7 @@
           <button class="btn btn-default" onclick="closeConsumer();">close</button>
         </div>
         <!-- consumer responses get written here -->
-        <pre id="messages">no messages</pre>
+        <pre id="messages" style="height:254px">no messages</pre>
       </div>
       <div class="col-xs-6">
         <label>producer</label>
@@ -118,7 +127,10 @@
       };
 
       consumer.onmessage = function(event){
-        messages.innerHTML += "\n" + event.data;
+        console.log(event.data);
+        var data = JSON.parse(event.data);
+        messages.innerHTML += "\n" + JSON.stringify(data, null, 2);
+        messages.scrollTop = messages.scrollHeight;
       };
     }
 
