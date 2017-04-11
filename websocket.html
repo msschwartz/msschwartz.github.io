@@ -51,7 +51,7 @@
       <div class="col-xs-6">
         <div class="form-group">
           <label for="log">log</label>
-          <pre id="log" style="height:180px">ready</pre>
+          <pre id="log" style="height:180px">Ready!</pre>
         </div>
       </div>
     </div>
@@ -87,26 +87,34 @@
     var consumer = null;
     var log = document.getElementById("log");
     var messages = document.getElementById("messages");
+
+    window.onerror = function logError(errorMsg, url, lineNumber) {
+      writeLog("Error: " + errorMsg);
+      return false;
+    }
     
     function openConsumer() {
       // Ensures only one connection is open at a time
       if(consumer != null && consumer.readyState !== WebSocket.CLOSED){
-        writeResponse("WebSocket is already opened.");
+        writeLog("WebSocket is already opened.");
         return;
       }
 
       saveValues();
 
-
       consumer = new WebSocket(`${document.getElementById("host").value}/consumer/${document.getElementById("consumer_topic").value}?username=${document.getElementById("username").value}&password=${document.getElementById("password").value}`);
 
       consumer.onopen = function(event){
-        writeResponse("Consumer connection opened.");
+        writeLog("Consumer connection opened.");
+      };
+
+      consumer.onerror = function(event) {
+        console.log(event);
       };
 
       consumer.onclose = function(event){
         consumer = null;
-        writeResponse("Consumer connection closed.");
+        writeLog("Consumer connection closed.");
       };
 
       consumer.onmessage = function(event){
@@ -117,7 +125,7 @@
     function openProducer() {
       // Ensures only one connection is open at a time
       if(producer != null && producer.readyState !== WebSocket.CLOSED){
-        writeResponse("WebSocket is already opened.");
+        writeLog("WebSocket is already opened.");
         return;
       }
 
@@ -125,13 +133,17 @@
 
       producer = new WebSocket(`${document.getElementById("host").value}/producer/${document.getElementById("producer_topic").value}?username=${document.getElementById("username").value}&password=${document.getElementById("password").value}`);
 
-      producer.onopen = function(event){
-        writeResponse("Producer connection opened.");
+      producer.onopen = function(event) {
+        writeLog("Producer connection opened.");
       };
 
-      producer.onclose = function(event){
+      producer.onerror = function(event) {
+        console.log(event);
+      };
+
+      producer.onclose = function(event) {
         producer = null;
-        writeResponse("Producer connection closed.");
+        writeLog("Producer connection closed.");
       };
     }
     
@@ -139,6 +151,7 @@
       var text = document.getElementById("producerinput").value;
       localStorage.setItem("producerinput", text);
       producer.send(text);
+      writeLog("Sent " + text.length + " bytes to producer.");
     }
     
     function closeConsumer() {
@@ -149,8 +162,9 @@
       producer.close();
     }
 
-    function writeResponse(text){
+    function writeLog(text) {
       log.innerHTML += "\n" + text;
+      log.scrollTop = log.scrollHeight;
     }
 
     function saveValues() {
