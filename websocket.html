@@ -137,7 +137,7 @@
     
     function send() {
       var text = document.getElementById("producerinput").value;
-      sessionStorage.setItem("producerinput", text);
+      localStorage.setItem("producerinput", text);
       producer.send(text);
     }
     
@@ -154,19 +154,19 @@
     }
 
     function saveValues() {
-      sessionStorage.setItem("host", document.getElementById("host").value);
-      sessionStorage.setItem("username", document.getElementById("username").value);
-      sessionStorage.setItem("password", document.getElementById("password").value);
-      sessionStorage.setItem("consumer_topic", document.getElementById("consumer_topic").value);
-      sessionStorage.setItem("producer_topic", document.getElementById("producer_topic").value);
+      localStorage.setItem("host", document.getElementById("host").value);
+      localStorage.setItem("username", document.getElementById("username").value);
+      localStorage.setItem("password", document.getElementById("password").value);
+      localStorage.setItem("consumer_topic", document.getElementById("consumer_topic").value);
+      localStorage.setItem("producer_topic", document.getElementById("producer_topic").value);
     }
     
-    document.getElementById("host").value = sessionStorage.getItem("host");
-    document.getElementById("username").value = sessionStorage.getItem("username");
-    document.getElementById("password").value = sessionStorage.getItem("password");
-    document.getElementById("consumer_topic").value = sessionStorage.getItem("consumer_topic");
-    document.getElementById("producer_topic").value = sessionStorage.getItem("producer_topic");
-    document.getElementById("producerinput").value = sessionStorage.getItem("producerinput");
+    document.getElementById("host").value = localStorage.getItem("host");
+    document.getElementById("username").value = localStorage.getItem("username");
+    document.getElementById("password").value = localStorage.getItem("password");
+    document.getElementById("consumer_topic").value = localStorage.getItem("consumer_topic");
+    document.getElementById("producer_topic").value = localStorage.getItem("producer_topic");
+    document.getElementById("producerinput").value = localStorage.getItem("producerinput");
   </script>
   
 </body>
