@@ -121,12 +121,13 @@
         console.log(event);
       };
 
-      consumer.onclose = function(event){
+      consumer.onclose = function(event) {
+        console.log(event);
         consumer = null;
         writeLog("Consumer connection closed.");
       };
 
-      consumer.onmessage = function(event){
+      consumer.onmessage = function(event) {
         console.log(event.data);
         var data = JSON.parse(event.data);
         messages.innerHTML += "\n" + JSON.stringify(data, null, 2);

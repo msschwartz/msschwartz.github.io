@@ -1,6 +1,6 @@
 
 // load history from local storage
-var messageHistory = sessionStorage.getItem("messageHistory");
+var messageHistory = localStorage.getItem("messageHistory");
 if (messageHistory == null) {
     messageHistory = new Array();
 } else {
@@ -20,7 +20,7 @@ function addHistory(msg) {
     if (messageHistory.length > 40) {
         messageHistory.shift();
     }
-    sessionStorage.setItem("messageHistory", JSON.stringify(messageHistory));
+    localStorage.setItem("messageHistory", JSON.stringify(messageHistory));
 }
 
 $("#encodeButton").on("click", function(e) {
