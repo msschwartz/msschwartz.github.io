@@ -2,20 +2,18 @@
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 15px;
-  color: #666;
+  color: #555;
   background: #fafafa;
+  text-align: center;
 }
 
 #header > h1 {
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin-top: 60px;
 }
 
-#content {
-  border: 1px solid #999;
-  margin-bottom: 60px;
-  background: #fff;
-  padding: 10px;
+.link-resume {
+  font-size: 48px;
+  color: #555;
 }
 
 .page-base64 #textarea {
