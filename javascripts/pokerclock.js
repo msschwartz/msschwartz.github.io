@@ -91,6 +91,7 @@ function startTimer() {
       if (--curTime < 0) {
         curTime = 0;
         clearInterval(timer);
+        timer = null;
         playAlarm();
       }
       updateTimeDisplay();
@@ -98,7 +99,11 @@ function startTimer() {
 }
 
 function stopTimer() {
-  clearInterval(timer);
+  if (timer) {
+    clearInterval(timer);
+  } else {
+    startTimer();
+  }
 }
 
 function updateTimeDisplay() {
