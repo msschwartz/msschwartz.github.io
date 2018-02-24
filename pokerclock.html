@@ -3,13 +3,6 @@
 <head>
   <title>Poker Clock</title>
 
-  <meta id="viewport" name="viewport" content="width=device-width, user-scalable=no">
-  <script>
-    var vp = document.getElementById('viewport');
-    var initialScale = Math.max(screen.width, screen.height) / 1920;
-    vp.setAttribute('content','width=device-width, initial-scale=' + initialScale + ', maximum-scale=' + initialScale, + 'minimum-scale=' + initialScale);
-  </script>
-
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="/stylesheets/pokerclock.css" />
 
@@ -28,7 +21,7 @@
         </div>
         <div class="col-xs-6">
           <h3 class="text-gray">Chips</h3>
-          <img src="/assets/chips.png" />
+          <img id="chips" src="/assets/chips.png" />
         </div>
       </div>
     </div>
