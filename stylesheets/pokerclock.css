@@ -1,0 +1,21 @@
+body {
+  height: 100%;
+  width: 100%;
+  color: #FFFFFF;
+  background-color: #000000;
+  font-weight:bold;
+  font-family: Verdana, Geneva, sans-serif;
+  text-align: center;
+}
+
+h3 {
+  color: #666;
+  font-size: 32px;
+}
+
+#time {
+  font-size: 260px;
+}
+#blinds {
+  font-size: 140px;
+}

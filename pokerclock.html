@@ -2,73 +2,40 @@
 <html>
 <head>
   <title>Poker Clock</title>
-  <style type="text/css">
-    body {
-      height: 100%;
-      width: 100%;
-      color: #FFFFFF;
-      background-color: #000000;
-      font-weight:bold;
-      font-family: Verdana, Geneva, sans-serif;
-      font-size: 40px;
-    }
-  </style>
+
+  <meta id="viewport" name="viewport" content="width=device-width, user-scalable=no">
+  <script>
+    var vp = document.getElementById('viewport');
+    var initialScale = Math.max(screen.width, screen.height) / 1920;
+    vp.setAttribute('content','width=device-width, initial-scale=' + initialScale + ', maximum-scale=' + initialScale, + 'minimum-scale=' + initialScale);
+  </script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/pokerclock.css" />
+
   <title>Cast Hello Text</title>
 </head>
-<body>
-  <h1>Poker Clock</h1>
-  <div id="message">Talk to me</div>
-  <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
-  <script type="text/javascript">
-    window.onload = function() {
-      cast.receiver.logger.setLevelValue(0);
-      window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-      console.log('Starting Receiver Manager');
-      // handler for the 'ready' event
-      castReceiverManager.onReady = function(event) {
-        console.log('Received Ready event: ' + JSON.stringify(event.data));
-        window.castReceiverManager.setApplicationState('Application status is ready...');
-      };
-      // handler for 'senderconnected' event
-      castReceiverManager.onSenderConnected = function(event) {
-        console.log('Received Sender Connected event: ' + event.data);
-        console.log(window.castReceiverManager.getSender(event.data).userAgent);
-      };
-      // handler for 'senderdisconnected' event
-      castReceiverManager.onSenderDisconnected = function(event) {
-        console.log('Received Sender Disconnected event: ' + event.data);
-        if (window.castReceiverManager.getSenders().length == 0) {
-          window.close();
-        }
-      };
-      // handler for 'systemvolumechanged' event
-      castReceiverManager.onSystemVolumeChanged = function(event) {
-        console.log('Received System Volume Changed event: ' + event.data['level'] + ' ' +
-            event.data['muted']);
-      };
-      // create a CastMessageBus to handle messages for a custom namespace
-      window.messageBus =
-        window.castReceiverManager.getCastMessageBus(
-            'urn:x-cast:com.google.cast.sample.helloworld');
-      // handler for the CastMessageBus message event
-      window.messageBus.onMessage = function(event) {
-        console.log('Message [' + event.senderId + ']: ' + event.data);
-        // display the message from the sender
-        displayText(event.data);
-        // inform all senders on the CastMessageBus of the incoming message event
-        // sender message listener will be invoked
-        window.messageBus.send(event.senderId, event.data);
-      }
-      // initialize the CastReceiverManager with an application status message
-      window.castReceiverManager.start({statusText: 'Application is starting'});
-      console.log('Receiver Manager started');
-    };
-    // utility function to display the text message in the input field
-    function displayText(text) {
-      console.log(text);
-      document.getElementById('message').innerText = text;
-      window.castReceiverManager.setApplicationState(text);
-    };
-  </script>
+<body>  
+  <div id="wrapper">
+    <h3 class="text-gray">Time Remaining</h3>
+    <div id="time">--:--</div>
+    <hr />
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-6">
+          <h3 class="text-gray">Current Blinds</h3>
+          <div id="blinds">--/--</div>
+        </div>
+        <div class="col-xs-6">
+          <h3 class="text-gray">Chips</h3>
+          <img src="/assets/chips.png" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="/javascripts/pokerclock.js"></script>
 </body>
 </html>
