@@ -20,9 +20,9 @@ window.onload = function() {
   // handler for 'senderdisconnected' event
   castReceiverManager.onSenderDisconnected = function(event) {
     console.log('Received Sender Disconnected event: ' + event.data);
-    if (window.castReceiverManager.getSenders().length == 0) {
-      window.close();
-    }
+    //if (window.castReceiverManager.getSenders().length == 0) {
+    //  window.close();
+    //}
   };
 
   // handler for 'systemvolumechanged' event
@@ -59,6 +59,8 @@ function handleMessage(message) {
   }
   if (message.startsWith('setBlinds:')) {
     var parts = message.split(':');
+    parts = parts[1].split('/');
+    setBlinds(parseInt(parts[0]), parseInt(parts[1]));
   }
   if (message.startsWith('stopTimer')) {
     stopTimer();
