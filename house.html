@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <title>New House</title>
+
+  <style>
+    html, body {
+      font-family: Tahoma, Verdana, sans-serif;
+    }
+    html, body, .carousel {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+    }
+    .carousel > .image {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: black;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center center;
+      z-index: 1;
+    }
+    .carousel-control {
+      position: absolute;
+      top: 50%;
+      margin-top: -20px;
+      height: 40px;
+      width: 40px;
+      background-color: rgba(255, 255, 255, 0.75);
+      border-radius: 20px;
+      color: #333;
+      font-weight: bold;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .carousel-control.left {
+      left: 20px;
+    }
+    .carousel-control.right {
+      right: 20px;
+    }
+    .noselect {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="carousel">
+    <div class="image" style="background-image: url('/assets/hayes/0.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/1.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/2.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/3.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/4.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/5.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/6.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/7.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/8.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/9.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/10.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/11.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/12.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/13.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/14.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/15.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/16.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/17.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/18.jpg')" /></div>
+    <div class="image" style="background-image: url('/assets/hayes/19.jpg')" /></div>
+    <div class="carousel-control left noselect">&larr;</div>
+    <div class="carousel-control right noselect">&rarr;</div>
+  </div>
+  
+  <script type="text/javascript">
+    $(document).ready(() => {
+      let index = 0;
+      const $images = $('.image');
+
+      $images.eq(index).show();
+      
+      $('.carousel-control.left').click(() => {
+        $images.eq(index).hide();
+        index = index === 0 ? ($images.length - 1) : (index - 1);
+        $images.eq(index).show();
+      });
+      
+      $('.carousel-control.right').click(() => {
+        $images.eq(index).hide();
+        index = (index + 1) % $images.length;
+        $images.eq(index).show();
+      });
+    });
+  </script>
+  
+</body>
+</html>
