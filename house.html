@@ -2,7 +2,11 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="apple-mobile-web-app-title" content="New House" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon" href="apple-icon.png">
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <title>New House</title>
 
@@ -13,8 +17,9 @@
     html, body, .carousel {
       margin: 0;
       padding: 0;
-      height: 100vh;
-      width: 100vw;
+      height: 100%;
+      width: 100%;
+      background: black;
     }
     .carousel > .image {
       display: none;
@@ -23,7 +28,6 @@
       right: 0;
       top: 0;
       bottom: 0;
-      background-color: black;
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center center;
