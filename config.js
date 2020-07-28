@@ -1,3 +1,3 @@
 window.config = {
-  name: 'simon',
+  name: 'simon v2',
 };
