@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Jira Title Change for TrackingTime
-// @description  change the title in jira to be something useable in TrackingTime!
+// @description  Change the title in jira to be something useable in Tracking Time (Don't forget to add your custom domains in Tracking Time extension).
 // @namespace    https://msschwartz.github.io
-// @version      1.0
+// @version      1.1
 // @author       Michael Schwartz
 // @match        https://*.atlassian.net/*
 // @match        https://jira.dm.nfl.com/*
