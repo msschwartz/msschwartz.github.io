@@ -20,7 +20,9 @@
   <h1>Adobe Test</h1>
   <p>Testing link: <a id="link" href="/adobe">click here</a></p>
   <script>
-    document.getElementById("link").setAttribute("href", `/adobe#t=${Date.now()}`);
+    setInterval(() => {
+      document.getElementById("link").setAttribute("href", `/adobe#t=${Date.now()}`);
+    }, 1000);
   </script>
 </body>
 </html>
