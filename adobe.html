@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Adobe Test</title>
+</head>
+<body>
+  <h1>Adobe Test</h1>
+  <p>Testing link: <a id="link" href="/">click here</a></p>
+  <script>
+    document.getElementById("link").setAttribute("href", `/#t=${Date.now()}`);
+  </script>
+</body>
+</html>
