@@ -15,9 +15,20 @@
         color: #333333;
         background: #fafafa;
       }
+      body {
+        flex-direction: column;
+      }
     </style>
+    <script src="/javascripts/formatJson.js"></script>
+    <script>
+      function format() {
+        var element = document.getElementById("json");
+        element.value = formatJson(element.value);
+      }
+    </script>
   </head>
   <body>
-    <div>jsonviewer</div>
+    <div style="flex: 0; padding: 8px"><button onclick="format()">format</button></div>
+    <textarea id="json" style="flex: 1; padding: 8px"></textarea>
   </body>
 </html>
